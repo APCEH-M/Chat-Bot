@@ -20,6 +20,7 @@ import keyword
 # Логирование действий
 logging.basicConfig(level=logging.INFO)
 
+
 # Объект бота и диспетчер
 # bot = Bot(token=config.token_api, parse_mode='HTML')
 session = AiohttpSession(proxy="http://proxy.halykbank.nb:8080")
@@ -27,9 +28,8 @@ bot = Bot(token=config.token_api, session=session)
 #bot = Bot(token = config.token_api)
 dp = Dispatcher()
 
-# Хэндлер на команду /start
+# Ожидание команды "/start"
 @dp.message(Command("start"))
-
 async def cmd_start(message: types.Message):
     await message.answer(f'Привет, {message.from_user.full_name}!')
     # await message.answer("Привет 😊", reply_markup=keyword)
@@ -38,13 +38,16 @@ async def cmd_start(message: types.Message):
 @dp.message(Command("info"))
 async def cmd_info(message: types.Message):
     number = random.randint(1, 7)
-    await message.answer('Я тестовый бот')
-    await message.answer('Твоё число {number}')
+    info = await bot.get_me()
+    await message.answer(f'Я тестовый бот - {info.first_name}')
+    await message.answer(f'Твоё число {number}')
     # print(message)
     # print(message.from_user.first_name)
 
-# @dp.message(Command("stop"))
-    
+@dp.message(Command("stop"))
+async def cmd_stop(message: types.Message):
+    await dp.stop_polling()
+
 
 async def main():
     await dp.start_polling(bot)
