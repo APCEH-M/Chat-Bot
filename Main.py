@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Объект бота и диспетчер
 # bot = Bot(token=config.token_api, parse_mode='HTML')
-# session = AiohttpSession(proxy="http://proxy.halykbank.nb:8080")
+# session = AiohttpSession(proxy="........................")
 session = AiohttpSession(proxy=config.proxy_url)
 bot = Bot(token=config.token_api, session=session)
 dp = Dispatcher()
