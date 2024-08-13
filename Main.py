@@ -1,5 +1,6 @@
 import asyncio
 import config
+import os
 
 from aiogram import Router
 router = Router()
@@ -23,9 +24,9 @@ logging.basicConfig(level=logging.INFO)
 
 # Объект бота и диспетчер
 # bot = Bot(token=config.token_api, parse_mode='HTML')
-session = AiohttpSession(proxy="http://proxy.halykbank.nb:8080")
+# session = AiohttpSession(proxy="http://proxy.halykbank.nb:8080")
+session = AiohttpSession(proxy=config.proxy_url)
 bot = Bot(token=config.token_api, session=session)
-#bot = Bot(token = config.token_api)
 dp = Dispatcher()
 
 # Ожидание команды "/start"
