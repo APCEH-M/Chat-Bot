@@ -42,8 +42,26 @@ async def cmd_info(message: types.Message):
     info = await bot.get_me()
     await message.answer(f'Я тестовый бот - {info.first_name}')
     await message.answer(f'Твоё число {number}')
-    # print(message)
-    # print(message.from_user.first_name)
+
+# Хэндлер на команду /user
+@dp.message(Command("user"))
+async def cmd_info(message: types.Message):
+    user = await bot.get_me()
+#    await message.answer(f'Проверка - {message.from_user.first_name} {message.from_user.last_name}')
+
+    if message.from_user.first_name is None:
+        First_Name = ''
+    else:
+        First_Name = message.from_user.first_name
+    
+    if message.from_user.last_name is None:
+        Last_Name = ''
+    else:
+        Last_Name = message.from_user.last_name
+    
+    await message.answer(f'Вы представились как - {First_Name} {Last_Name}')
+#    print(message)
+#    print(message.from_user.first_name)
 
 @dp.message(Command("stop"))
 async def cmd_stop(message: types.Message):
